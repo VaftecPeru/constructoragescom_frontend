@@ -118,3 +118,38 @@
 
 })(jQuery);
 
+(function(){
+    var setLang = function(lang){
+        if(lang === 'en'){
+            document.documentElement.classList.add('lang-en-active');
+        } else {
+            document.documentElement.classList.remove('lang-en-active');
+        }
+        try { localStorage.setItem('lang', lang); } catch(e){}
+        var toggle = document.querySelector('.topbar .dropdown-toggle small');
+        if(toggle){ toggle.innerHTML = '<i class="fas fa-globe-europe text-primary me-2"></i> ' + (lang === 'en' ? 'English' : 'Español'); }
+        var emailInput = document.querySelector('#subscribe-email');
+        if(emailInput){ emailInput.placeholder = (lang === 'en' ? 'Email to subscribe' : 'Correo electrónico para suscribirse'); }
+        var nameInput = document.getElementById('name');
+        if(nameInput){ nameInput.placeholder = (lang === 'en' ? 'Your name' : 'Tu nombre'); }
+        var emailField = document.getElementById('email');
+        if(emailField){ emailField.placeholder = (lang === 'en' ? 'Your email' : 'Tu correo'); }
+        var phoneInput = document.getElementById('phone');
+        if(phoneInput){ phoneInput.placeholder = (lang === 'en' ? 'Phone' : 'Teléfono'); }
+        var projectInput = document.getElementById('project');
+        if(projectInput){ projectInput.placeholder = (lang === 'en' ? 'Project' : 'Proyecto'); }
+        var subjectInput = document.getElementById('subject');
+        if(subjectInput){ subjectInput.placeholder = (lang === 'en' ? 'Subject' : 'Asunto'); }
+        var messageInput = document.getElementById('message');
+        if(messageInput){ messageInput.placeholder = (lang === 'en' ? 'Leave a message here' : 'Deja un mensaje aquí'); }
+    };
+    var saved = null;
+    try { saved = localStorage.getItem('lang'); } catch(e){}
+    if(saved){ setLang(saved); }
+    document.addEventListener('click', function(e){
+        var t = e.target;
+        if(t && t.closest('.lang-switch-en')){ e.preventDefault(); setLang('en'); }
+        if(t && t.closest('.lang-switch-es')){ e.preventDefault(); setLang('es'); }
+    });
+})();
+

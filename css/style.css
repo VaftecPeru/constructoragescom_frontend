@@ -740,7 +740,9 @@
     width: 30px;
     height: 30px;
     margin: 30px 10px 0 10px;
-    background: var(--bs-white);
+    background: transparent;
+    border: 1px solid var(--bs-primary);
+    border-radius: 50%;
     transition: 0.5s;
 }
 
@@ -754,6 +756,7 @@
     width: 30px;
     height: 30px;
     background: var(--bs-primary);
+    border-color: var(--bs-primary);
     transition: 0.5s;
 }
 
@@ -775,17 +778,18 @@
 
 .testimonial-carousel .owl-dots .owl-dot span::after {
     content: "";
-    width: 15px;
-    height: 15px;
+    width: 12px;
+    height: 12px;
     position: absolute;
     top: 50%;
-    left: 0;
-    transform: translateY(-50%);
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     background: var(--bs-primary);
+    border-radius: 50%;
     transition: 0.5s;
 }
 /*** Testimonial End ***/
@@ -829,6 +833,18 @@
     background: var(--bs-dark);
 }
 /*** copyright end ***/
+
+.lang-en {
+    display: none;
+}
+
+.lang-en-active .lang-en {
+    display: inline;
+}
+
+.lang-en-active .lang-es {
+    display: none;
+}
 
 
 
