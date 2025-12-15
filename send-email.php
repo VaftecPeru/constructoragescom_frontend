@@ -104,7 +104,7 @@ de contacto del sitio web de GESCOM.
 ===========================================
 ";
 
-// URL base del sitio (desde .env)
+// URL base del sitio
 $urlSitio = $_ENV['SITE_URL'] ?? 'http://localhost:8000';
 
 // Cuerpo HTML
@@ -253,22 +253,16 @@ $cuerpoHTML = "
 
 
 
-// Crear instancia de PHPMailer
 $mail = new PHPMailer(true);
 
 try {
-    // Configuración del servidor SMTP
-    $mail->isSMTP();
-    $mail->Host       = $config['smtp_host'];
-    $mail->SMTPAuth   = true;
-    $mail->Username   = $config['smtp_user'];
-    $mail->Password   = $config['smtp_password'];
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-    $mail->Port       = $config['smtp_port'];
-    $mail->CharSet    = 'UTF-8';
+    // Usando función mail() del servidor
+    $mail->isMail();
+    
+    $mail->CharSet = 'UTF-8';
     
     // Remitente y destinatario
-    $mail->setFrom($config['smtp_user'], $config['from_name']);
+    $mail->setFrom('info@constructoragescom.com', $config['from_name']);
     $mail->addAddress($config['destinatario']);
     $mail->addReplyTo($email, $nombre);
     
@@ -290,8 +284,7 @@ try {
     http_response_code(500);
     echo json_encode([
         "success" => false,
-        "message" => "Error al enviar el mensaje. Por favor, intenta de nuevo.",
-        "debug" => $mail->ErrorInfo // Cuando se suba a produccion se debe quitar esta linea
+        "message" => "Error al enviar el mensaje: " . $mail->ErrorInfo
     ]);
 }
 ?>
