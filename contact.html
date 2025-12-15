@@ -164,42 +164,48 @@
                                 <div class="row g-4">
                                     <div class="col-lg-12 col-xl-6">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control border-0" id="name" placeholder="Tu nombre">
+                                            <input type="text" class="form-control border-0" id="name" name="name" placeholder="Tu nombre" required>
                                             <label for="name"><span class="lang-es">Tu nombre</span><span class="lang-en">Your name</span></label>
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-xl-6">
                                         <div class="form-floating">
-                                            <input type="email" class="form-control border-0" id="email" placeholder="Tu correo">
+                                            <input type="email" class="form-control border-0" id="email" name="email" placeholder="Tu correo" required>
                                             <label for="email"><span class="lang-es">Tu correo</span><span class="lang-en">Your email</span></label>
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-xl-6">
                                         <div class="form-floating">
-                                            <input type="phone" class="form-control border-0" id="phone" placeholder="Teléfono">
+                                            <input type="tel" class="form-control border-0" id="phone" name="phone" placeholder="Teléfono">
                                             <label for="phone"><span class="lang-es">Tu teléfono</span><span class="lang-en">Your phone</span></label>
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-xl-6">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control border-0" id="project" placeholder="Proyecto">
+                                            <input type="text" class="form-control border-0" id="project" name="project" placeholder="Proyecto">
                                             <label for="project"><span class="lang-es">Tu proyecto</span><span class="lang-en">Your project</span></label>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control border-0" id="subject" placeholder="Asunto">
+                                            <input type="text" class="form-control border-0" id="subject" name="subject" placeholder="Asunto">
                                             <label for="subject"><span class="lang-es">Asunto</span><span class="lang-en">Subject</span></label>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating">
-                                            <textarea class="form-control border-0" placeholder="Deja un mensaje aquí" id="message" style="height: 125px"></textarea>
+                                            <textarea class="form-control border-0" placeholder="Deja un mensaje aquí" id="message" name="message" style="height: 125px" required></textarea>
                                             <label for="message"><span class="lang-es">Mensaje</span><span class="lang-en">Message</span></label>
                                         </div>
                                     </div>
+                                    <!-- Mensaje de estado -->
                                     <div class="col-12">
-                                        <button class="btn btn-primary w-100 py-3" type="button" onclick="window.location.href='mailto:info@constructoragescom.com?subject=Consulta%20desde%20Contactenos'"><span class="lang-es">Enviar mensaje</span><span class="lang-en">Send message</span></button>
+                                        <div id="form-status" class="alert d-none" role="alert"></div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button class="btn btn-primary w-100 py-3" type="submit" id="submit-btn">
+                                            <span class="lang-es">Enviar mensaje</span><span class="lang-en">Send message</span>
+                                        </button>
                                     </div>
                                 </div>
                             </form>
@@ -311,6 +317,90 @@
 
         <!-- Template Javascript -->
         <script src="js/main.js"></script>
+
+        <!-- Contact Form Script -->
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('contact-form');
+            const submitBtn = document.getElementById('submit-btn');
+            const statusDiv = document.getElementById('form-status');
+            
+            // Detectar idioma actual
+            const getCurrentLang = () => {
+                return localStorage.getItem('lang') || 'es';
+            };
+
+            // Mensajes en ambos idiomas
+            const messages = {
+                es: {
+                    sending: 'Enviando...',
+                    success: '¡Mensaje enviado correctamente! Nos pondremos en contacto contigo pronto.',
+                    error: 'Error al enviar el mensaje. Por favor, intenta de nuevo.',
+                    validation: 'Por favor, completa todos los campos requeridos.'
+                },
+                en: {
+                    sending: 'Sending...',
+                    success: 'Message sent successfully! We will contact you soon.',
+                    error: 'Error sending message. Please try again.',
+                    validation: 'Please fill in all required fields.'
+                }
+            };
+
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const lang = getCurrentLang();
+                
+                // Deshabilitar botón y mostrar estado
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = `<span class="spinner-border spinner-border-sm me-2"></span>${messages[lang].sending}`;
+                
+                // Ocultar mensaje anterior
+                statusDiv.classList.add('d-none');
+                statusDiv.classList.remove('alert-success', 'alert-danger');
+                
+                // Obtener datos del formulario
+                const formData = new FormData(form);
+                
+                try {
+                    const response = await fetch('send-email.php', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        // Éxito
+                        statusDiv.classList.remove('d-none');
+                        statusDiv.classList.add('alert-success');
+                        statusDiv.innerHTML = `<i class="fas fa-check-circle me-2"></i>${messages[lang].success}`;
+                        form.reset();
+                    } else {
+                        // Error del servidor
+                        statusDiv.classList.remove('d-none');
+                        statusDiv.classList.add('alert-danger');
+                        statusDiv.innerHTML = `<i class="fas fa-exclamation-circle me-2"></i>${data.message || messages[lang].error}`;
+                    }
+                } catch (error) {
+                    // Error de red
+                    statusDiv.classList.remove('d-none');
+                    statusDiv.classList.add('alert-danger');
+                    statusDiv.innerHTML = `<i class="fas fa-exclamation-circle me-2"></i>${messages[lang].error}`;
+                    console.error('Error:', error);
+                } finally {
+                    // Restaurar botón
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = `<span class="lang-es">Enviar mensaje</span><span class="lang-en">Send message</span>`;
+                    
+                    // Aplicar idioma al botón restaurado
+                    if (typeof setLanguage === 'function') {
+                        setLanguage(lang);
+                    }
+                }
+            });
+        });
+        </script>
     </body>
 
 </html>

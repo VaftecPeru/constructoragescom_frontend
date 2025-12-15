@@ -1,0 +1,13 @@
+# Dependencias
+/vendor/
+composer.lock
+
+# Variables de entorno (contiene credenciales sensibles)
+.env
+
+# Logs
+contact_log.txt
+
+# Sistema
+.DS_Store
+Thumbs.db
