@@ -271,4 +271,99 @@
     });
 })();
 
+// Formulario de suscripción al newsletter
+(function () {
+    document.addEventListener('DOMContentLoaded', function () {
+        var subscribeForm = document.getElementById('subscribe-form');
+        if (!subscribeForm) return;
 
+        var emailInput = document.getElementById('subscribe-email');
+        var submitBtn = document.getElementById('subscribe-btn');
+        var messageDiv = document.getElementById('subscribe-message');
+        var textSpan = submitBtn.querySelector('.subscribe-text');
+        var loadingSpan = submitBtn.querySelector('.subscribe-loading');
+
+        // Obtener idioma actual
+        var getCurrentLang = function () {
+            return document.documentElement.classList.contains('lang-en-active') ? 'en' : 'es';
+        };
+
+        // Mostrar mensaje
+        var showMessage = function (message, isSuccess) {
+            messageDiv.textContent = message;
+            messageDiv.className = 'mt-2 text-center ' + (isSuccess ? 'text-success' : 'text-danger');
+            messageDiv.classList.remove('d-none');
+
+            // Ocultar mensaje después de 5 segundos
+            setTimeout(function () {
+                messageDiv.classList.add('d-none');
+            }, 5000);
+        };
+
+        // Establecer estado de carga
+        var setLoading = function (loading) {
+            if (loading) {
+                submitBtn.disabled = true;
+                textSpan.classList.add('d-none');
+                loadingSpan.classList.remove('d-none');
+            } else {
+                submitBtn.disabled = false;
+                textSpan.classList.remove('d-none');
+                loadingSpan.classList.add('d-none');
+            }
+        };
+
+        subscribeForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            var email = emailInput.value.trim();
+            var lang = getCurrentLang();
+
+            // Validación de email
+            if (!email) {
+                showMessage(lang === 'en' ? 'Please enter your email address' : 'Por favor ingresa tu correo electrónico', false);
+                return;
+            }
+
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showMessage(lang === 'en' ? 'Please enter a valid email address' : 'Por favor ingresa un correo electrónico válido', false);
+                return;
+            }
+
+            setLoading(true);
+
+            // Enviar al servidor
+            var formData = new FormData();
+            formData.append('email', email);
+
+            fetch('subscribe.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (data) {
+                    setLoading(false);
+
+                    if (data.success) {
+                        var message = lang === 'en' ? data.message_en : data.message_es;
+                        showMessage(message, true);
+                        emailInput.value = ''; // Limpiar campo
+                    } else {
+                        var message = lang === 'en' ? data.message_en : data.message_es;
+                        showMessage(message, false);
+                    }
+                })
+                .catch(function (error) {
+                    setLoading(false);
+                    console.error('Error:', error);
+                    showMessage(
+                        lang === 'en' ? 'Connection error. Please try again.' : 'Error de conexión. Intenta nuevamente.',
+                        false
+                    );
+                });
+        });
+    });
+})();
