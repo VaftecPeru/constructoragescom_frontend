@@ -123,13 +123,13 @@ $cuerpoHTML = "
                     
                     <!-- Header con logo -->
                     <tr>
-                        <td style='background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 30px 40px; text-align: center;'>
+                        <td style='background: linear-gradient(135deg, #1B2A4E 0%, #2d4a7c 100%); padding: 30px 40px; text-align: center;'>
                             <table role='presentation' width='100%' cellspacing='0' cellpadding='0'>
                                 <tr>
                                     <td style='text-align: center;'>
                                         <img src='$urlSitio/img/rueda.png' alt='GESCOM' width='50' height='50' style='display: block; margin: 0 auto 10px auto;'>
                                         <h1 style='color: #ffffff; margin: 10px 0 5px 0; font-size: 28px; font-weight: bold;'>GESCOM</h1>
-                                        <p style='color: #f97316; margin: 0; font-size: 12px; letter-spacing: 2px;'>CONSTRUCTORA SAC</p>
+                                        <p style='color: #D4A853; margin: 0; font-size: 12px; letter-spacing: 2px;'>CONSTRUCTORA SAC</p>
                                     </td>
                                 </tr>
                             </table>
@@ -138,8 +138,8 @@ $cuerpoHTML = "
                     
                     <!-- Banner de notificación -->
                     <tr>
-                        <td style='background-color: #f97316; padding: 15px 40px; text-align: center;'>
-                            <h2 style='color: #ffffff; margin: 0; font-size: 18px; font-weight: 600;'>
+                        <td style='background-color: #D4A853; padding: 15px 40px; text-align: center;'>
+                            <h2 style='color: #1B2A4E; margin: 0; font-size: 18px; font-weight: 600;'>
                                 NUEVO MENSAJE DE CONTACTO
                             </h2>
                         </td>
@@ -152,9 +152,9 @@ $cuerpoHTML = "
                             <!-- Datos del cliente -->
                             <table role='presentation' width='100%' cellspacing='0' cellpadding='0' style='margin-bottom: 30px;'>
                                 <tr>
-                                    <td style='padding-bottom: 15px; border-bottom: 2px solid #f97316;'>
-                                        <h3 style='color: #1a1a2e; margin: 0; font-size: 16px;'>
-                                            <span style='color: #f97316; font-weight: bold;'>|</span> DATOS DEL CLIENTE
+                                    <td style='padding-bottom: 15px; border-bottom: 2px solid #D4A853;'>
+                                        <h3 style='color: #1B2A4E; margin: 0; font-size: 16px;'>
+                                            <span style='color: #D4A853; font-weight: bold;'>|</span> DATOS DEL CLIENTE
                                         </h3>
                                     </td>
                                 </tr>
@@ -163,19 +163,19 @@ $cuerpoHTML = "
                                         <table role='presentation' width='100%' cellspacing='0' cellpadding='8'>
                                             <tr>
                                                 <td width='30%' style='color: #666; font-size: 14px; vertical-align: top;'>Nombre:</td>
-                                                <td style='color: #1a1a2e; font-size: 14px; font-weight: 600;'>$nombre</td>
+                                                <td style='color: #1B2A4E; font-size: 14px; font-weight: 600;'>$nombre</td>
                                             </tr>
                                             <tr>
                                                 <td style='color: #666; font-size: 14px; vertical-align: top;'>Correo:</td>
-                                                <td><a href='mailto:$email' style='color: #f97316; text-decoration: none; font-size: 14px;'>$email</a></td>
+                                                <td><a href='mailto:$email' style='color: #D4A853; text-decoration: none; font-size: 14px;'>$email</a></td>
                                             </tr>
                                             <tr>
                                                 <td style='color: #666; font-size: 14px; vertical-align: top;'>Teléfono:</td>
-                                                <td><a href='tel:$telefono' style='color: #f97316; text-decoration: none; font-size: 14px;'>$telefono</a></td>
+                                                <td><a href='tel:$telefono' style='color: #D4A853; text-decoration: none; font-size: 14px;'>$telefono</a></td>
                                             </tr>
                                             <tr>
                                                 <td style='color: #666; font-size: 14px; vertical-align: top;'>Proyecto:</td>
-                                                <td style='color: #1a1a2e; font-size: 14px;'>$proyecto</td>
+                                                <td style='color: #1B2A4E; font-size: 14px;'>$proyecto</td>
                                             </tr>
                                         </table>
                                     </td>
@@ -185,15 +185,15 @@ $cuerpoHTML = "
                             <!-- Mensaje -->
                             <table role='presentation' width='100%' cellspacing='0' cellpadding='0'>
                                 <tr>
-                                    <td style='padding-bottom: 15px; border-bottom: 2px solid #f97316;'>
-                                        <h3 style='color: #1a1a2e; margin: 0; font-size: 16px;'>
-                                            <span style='color: #f97316; font-weight: bold;'>|</span> MENSAJE
+                                    <td style='padding-bottom: 15px; border-bottom: 2px solid #D4A853;'>
+                                        <h3 style='color: #1B2A4E; margin: 0; font-size: 16px;'>
+                                            <span style='color: #D4A853; font-weight: bold;'>|</span> MENSAJE
                                         </h3>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style='padding-top: 20px;'>
-                                        <div style='background-color: #f8f9fa; border-left: 4px solid #f97316; padding: 20px; border-radius: 0 8px 8px 0;'>
+                                        <div style='background-color: #f8f9fa; border-left: 4px solid #D4A853; padding: 20px; border-radius: 0 8px 8px 0;'>
                                             <p style='color: #333; font-size: 14px; line-height: 1.8; margin: 0; white-space: pre-wrap;'>$mensaje</p>
                                         </div>
                                     </td>
@@ -204,7 +204,7 @@ $cuerpoHTML = "
                             <table role='presentation' width='100%' cellspacing='0' cellpadding='0' style='margin-top: 30px;'>
                                 <tr>
                                     <td align='center'>
-                                        <a href='mailto:$email?subject=Re: $asunto' style='display: inline-block; background-color: #f97316; color: #ffffff; text-decoration: none; padding: 14px 40px; border-radius: 6px; font-weight: 600; font-size: 14px;'>
+                                        <a href='mailto:$email?subject=Re: $asunto' style='display: inline-block; background-color: #D4A853; color: #1B2A4E; text-decoration: none; padding: 14px 40px; border-radius: 6px; font-weight: 600; font-size: 14px;'>
                                             RESPONDER AL CLIENTE
                                         </a>
                                     </td>
@@ -216,7 +216,7 @@ $cuerpoHTML = "
                     
                     <!-- Footer -->
                     <tr>
-                        <td style='background-color: #1a1a2e; padding: 30px 40px;'>
+                        <td style='background-color: #1B2A4E; padding: 30px 40px;'>
                             <table role='presentation' width='100%' cellspacing='0' cellpadding='0'>
                                 <tr>
                                     <td style='text-align: center; padding-bottom: 15px;'>
@@ -226,9 +226,9 @@ $cuerpoHTML = "
                                 </tr>
                                 <tr>
                                     <td style='text-align: center; color: #888; font-size: 12px; line-height: 2;'>
-                                        <span style='color: #f97316;'>&#9679;</span> Lima, Perú<br>
-                                        <span style='color: #f97316;'>&#9679;</span> info@constructoragescom.com<br>
-                                        <span style='color: #f97316;'>&#9679;</span> +51 975 130 810
+                                        <span style='color: #D4A853;'>&#9679;</span> Lima, Perú<br>
+                                        <span style='color: #D4A853;'>&#9679;</span> info@constructoragescom.com<br>
+                                        <span style='color: #D4A853;'>&#9679;</span> +51 975 130 810
                                     </td>
                                 </tr>
                                 <tr>
